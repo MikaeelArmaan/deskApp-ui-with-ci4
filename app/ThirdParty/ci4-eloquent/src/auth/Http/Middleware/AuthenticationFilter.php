@@ -65,14 +65,14 @@ class AuthenticationFilter implements FilterInterface
         return $this->unauthenticated($request, $guards);
     }
 
-     /**
-      * Handle an unauthenticated user.
-      *
-      * @param RequestInterface $request
-      * @param array $guards
-      * @return void
-      * @throws AuthenticationException
-      */
+    /**
+     * Handle an unauthenticated user.
+     *
+     * @param RequestInterface $request
+     * @param array $guards
+     * @return void
+     * @throws AuthenticationException
+     */
     protected function unauthenticated($request, $guards)
     {
         if ($request->isAJAX() || !!($request->getJSON())) {

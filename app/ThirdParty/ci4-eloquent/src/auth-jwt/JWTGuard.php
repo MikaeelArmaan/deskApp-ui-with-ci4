@@ -92,7 +92,7 @@ class JWTGuard implements AuthenticationInterface
      */
     public function userOrFail()
     {
-        if (! $user = $this->user()) {
+        if (!$user = $this->user()) {
             throw new UserNotDefinedException();
         }
 
@@ -391,7 +391,7 @@ class JWTGuard implements AuthenticationInterface
      */
     protected function requireToken()
     {
-        if (! $this->jwt->setRequest($this->getRequest())->getToken()) {
+        if (!$this->jwt->setRequest($this->getRequest())->getToken()) {
             throw new JWTException('Token could not be parsed from the request.');
         }
 

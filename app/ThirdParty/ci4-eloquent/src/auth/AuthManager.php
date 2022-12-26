@@ -241,7 +241,7 @@ class AuthManager implements AuthFactoryInterface
 
         $routes->post('login', 'Auth\AuthenticateController::login', [
             'as' => 'login.post', 
-            'filter' => 'throttle:6,1'
+            //'filter' => 'throttle:6,1'
         ]);
 
         $routes->post('refresh', 'Auth\AuthenticateController::refresh', [
