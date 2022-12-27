@@ -68,7 +68,8 @@
                 @yield('content')
                 @yield('modal')
                 <div class="footer-wrap pd-20 mb-20 card-box">
-                    <span>Copyright &copy; {{ date('Y') }}</span>
+                    <span>&copy; {{ date('Y') }} <a href="https://rockmontwebsolutions.in/"
+                            target="_blank">RockmontWebSolutions</a> Developed By : <a href="mailto:armaancomps@gmail.com">Arman Khan</a></span>
                 </div>
             </div>
         </div>

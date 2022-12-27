@@ -59,8 +59,8 @@
                             <li>
                                 <a href="#">
                                     <img src="vendors/images/img.jpg" alt="">
-                                    <h3>John Doe</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
+                                    <h3>arman</h3>
+                                    <p>Khan</p>
                                 </a>
                             </li>
                             
@@ -93,7 +93,7 @@
             </div>
         </div>
         <div class="github-link">
-            <a href="https://github.com/dropways/deskapp" target="_blank"><img src="vendors/images/github.svg"
+            <a href="https://github.com/MikaeelArmaan" target="_blank"><img src="vendors/images/github.svg"
                     alt=""></a>
         </div>
     </div>
