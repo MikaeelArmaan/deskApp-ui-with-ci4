@@ -12,7 +12,7 @@
                 <option value="30">30</option>
             </select>
             <label for="days" class="py-2 px-2">Days ago</label>
-            
+
             <button class="btn btn-sm btn-danger btn-clear">Clear</button>
         </div>
     </div>
@@ -33,7 +33,7 @@
                                     <th>User</th>
                                     <th>Model</th>
                                     <th>Type</th>
-                                    <th></th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -44,23 +44,48 @@
         </div>
     </div>
     <!-- Content Row -->
-
 @endsection
 @push('scripts')
+    <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+    <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+    <!-- buttons for Export datatable -->
+    <script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.print.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
+    <script src="src/plugins/datatables/js/pdfmake.min.js"></script>
+    <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
     <script type="text/javascript">
         let table = $('.datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax:{
+            ajax: {
                 url: '{{ route_to('activity.data') }}',
                 type: 'GET'
             },
-            columns: [
-                {data: 'index', name: 'index'},
-                {data: 'name', name: 'name'},
-                {data: 'logable_type', name: 'logable_type'},
-                {data: 'type', name: 'type'},
-                {data: 'button', name: 'button'},
+            columns: [{
+                    data: 'index',
+                    name: 'index'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'logable_type',
+                    name: 'logable_type'
+                },
+                {
+                    data: 'type',
+                    name: 'type'
+                },
+                {
+                    data: 'button',
+                    name: 'button'
+                },
             ]
         });
 
@@ -85,35 +110,39 @@
             let days = $('#days').val();
 
             if (confirm("Are you sure want to clear user logs?")) {
+                $(".pre-loader").show();
                 $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    data: {
-                        days: days
-                    },
-                    success: (response) => {
-                        showAlert('alert-warning', response.message);
-                    },
-                    error: ({ responseJSON }) => {
-                        console.log(responseJSON);
-                        $.each(responseJSON.messages, (key, val) => {
-                            if (key === 'error') {
-                                $('#userModal').modal('hide');
+                        url: url,
+                        type: 'DELETE',
+                        data: {
+                            days: days
+                        },
+                        success: (response) => {
+                            $(".pre-loader").hide();
+                            showAlert('alert-warning', response.message);
+                        },
+                        error: ({
+                            responseJSON
+                        }) => {
+                            $(".pre-loader").hide();
+                            $.each(responseJSON.messages, (key, val) => {
+                                if (key === 'error') {
+                                    $('#userModal').modal('hide');
 
-                                showAlert('alert-danger', val);
-                            }
-                        });
+                                    showAlert('alert-danger', val);
+                                }
+                            });
 
-                        showAlert('alert-danger', responseJSON.message);
-                    }
-                })
-                .always(function() {
-                    table.ajax.reload();
+                            showAlert('alert-danger', responseJSON.message);
+                        }
+                    })
+                    .always(function() {
+                        table.ajax.reload();
 
-                    return setTimeout(() => {
-                        hideAlert();
-                    }, 3200);
-                });
+                        return setTimeout(() => {
+                            hideAlert();
+                        }, 3200);
+                    });
             }
         });
     </script>

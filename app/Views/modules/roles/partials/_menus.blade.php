@@ -29,7 +29,7 @@
             Open Permission <i class="fas fa-caret-down float-right"></i>
         </strong>
     </button>
-    <ul class="collapse" id="collapse-{{ $rand }}">
+    <ul class="collapse ml-5" id="collapse-{{ $rand }}">
         @foreach($menus['permissions'] as $key => $menu)
             <li class="row" style="border-left:solid 1px #ddd;">
                 <input 

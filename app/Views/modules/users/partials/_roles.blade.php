@@ -17,7 +17,7 @@
             Open Roles <i class="fas fa-caret-down float-right"></i>
         </strong>
     </button>
-    <ul class="collapse" id="collapse-{{ $rand }}">
+    <ul class="collapse ml-5" id="collapse-{{ $rand }}">
         @foreach($roles as $id => $role)
             <li class="row" style="border-left:solid 1px #ddd;">
                 <input 

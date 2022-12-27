@@ -22,7 +22,7 @@
                                     <th width="40">No</th>
                                     <th>Permission Name</th>
                                     <th>Readable Name</th>
-                                    <th width="80"></th>
+                                    <th width="80">Action</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -36,7 +36,8 @@
 @endsection
 
 @section('modal')
-    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -51,12 +52,14 @@
 
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Pemission Name:</label>
-                            <input id="name" type="text" class="form-control" name="name" required autocomplete="name" autofocus autofocus placeholder="Enter Permission Name...">
+                            <input id="name" type="text" class="form-control" name="name" required
+                                autocomplete="name" autofocus autofocus placeholder="Enter Permission Name...">
                         </div>
 
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Readable Name:</label>
-                            <input id="readable_name" type="text" class="form-control" name="readable_name" required autocomplete="readable_name" autofocus autofocus placeholder="Enter Readable Name...">
+                            <input id="readable_name" type="text" class="form-control" name="readable_name" required
+                                autocomplete="readable_name" autofocus autofocus placeholder="Enter Readable Name...">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -70,21 +73,46 @@
 @endsection
 
 @push('scripts')
+    <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+    <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+    <!-- buttons for Export datatable -->
+    <script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.print.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
+    <script src="src/plugins/datatables/js/pdfmake.min.js"></script>
+    <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
     <script type="text/javascript">
         let table = $('.datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax:{
+            ajax: {
                 url: '{{ route_to('permissions.data') }}',
                 type: 'GET'
             },
-            columns: [
-                {data: 'index', name: 'index'},
-                {data: 'name', name: 'name'},
-                {data: 'readable_name', name: 'readable_name'},
-                {data: 'button', name: 'button'}
+            columns: [{
+                    data: 'index',
+                    name: 'index'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'readable_name',
+                    name: 'readable_name'
+                },
+                {
+                    data: 'button',
+                    name: 'button'
+                }
             ],
-            order: [[1, 'asc']]
+            order: [
+                [1, 'asc']
+            ]
         });
 
         function openModal(title) {
@@ -130,7 +158,7 @@
             let items = $(this).data('items');
 
             $.each(items, function(key, val) {
-                $('#'+key).val(val);
+                $('#' + key).val(val);
             });
 
             $('#data-form').attr({
@@ -146,21 +174,21 @@
 
             if (confirm("Are you sure want to delete permission name?")) {
                 $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    success: (response) => {
-                        return setTimeout(() => {
-                            showAlert('alert-warning', response.message);
-                        }, 500);
-                    }
-                })
-                .always(function() {
-                    table.ajax.reload();
+                        url: url,
+                        type: 'DELETE',
+                        success: (response) => {
+                            return setTimeout(() => {
+                                showAlert('alert-warning', response.message);
+                            }, 500);
+                        }
+                    })
+                    .always(function() {
+                        table.ajax.reload();
 
-                    return setTimeout(() => {
-                        hideAlert();
-                    }, 3200);
-                });
+                        return setTimeout(() => {
+                            hideAlert();
+                        }, 3200);
+                    });
             }
         });
 
@@ -170,45 +198,47 @@
             let data = $(this).serialize();
             let url = $(this).attr('action');
             let method = $(this).attr('method');
-
+            $(".pre-loader").show();
             $.ajax({
-                url: url,
-                type: method,
-                data: data,
-                success: (response) => {
-                    $('#formModal').modal('hide');
-
-                    return setTimeout(() => {
-                        showAlert('alert-success', response.message);
-                    }, 500);
-                },
-                error: ({ responseJSON }) => {
-                    console.log(responseJSON);
+                    url: url,
+                    type: method,
+                    data: data,
                     
-                    $.each(responseJSON.messages, (key, val) => {
-                        $('#'+key).addClass('is-invalid')
-                            .after('<small class="invalid-feedback">'+val+'</small>');
-                        
-                        if (key === 'error') {
+                    success: (response) => {
+                        $('#formModal').modal('hide');
+                        $(".pre-loader").hide();
+                        return setTimeout(() => {
+                            showAlert('alert-success', response.message);
+                        }, 500);
+                    },
+                    error: ({
+                        responseJSON
+                    }) => {
+                        $(".pre-loader").hide();
+                        $.each(responseJSON.messages, (key, val) => {
+                            $('#' + key).addClass('is-invalid')
+                                .after('<small class="invalid-feedback">' + val + '</small>');
+
+                            if (key === 'error') {
+                                $('#formModal').modal('hide');
+
+                                showAlert('alert-danger', val);
+                            }
+                        });
+
+                        if (responseJSON.message) {
                             $('#formModal').modal('hide');
 
-                            showAlert('alert-danger', val);
+                            showAlert('alert-danger', responseJSON.message);
                         }
-                    });
-
-                    if (responseJSON.message) {
-                        $('#formModal').modal('hide');
-
-                        showAlert('alert-danger', responseJSON.message);
                     }
-                }
-            })
-            .always(function() {
-                table.ajax.reload();
-            });
+                })
+                .always(function() {
+                    table.ajax.reload();
+                });
         });
 
-        $('#formModal').on('show.bs.modal', function(e){
+        $('#formModal').on('show.bs.modal', function(e) {
             $('.form-control')
                 .removeClass('is-invalid')
                 .find('.invalid-feedback')
@@ -221,7 +251,7 @@
             $('#repeat_password').attr('required', false);
         });
 
-        $('#formModal').on('hidden.bs.modal', function(e){
+        $('#formModal').on('hidden.bs.modal', function(e) {
             $('#data-form').trigger('reset');
 
             return setTimeout(() => {

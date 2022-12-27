@@ -204,7 +204,7 @@ class AuthManager implements AuthFactoryInterface
 
             $routes->post('register', 'Auth\RegisterController::register', [
                 'as' => 'register.post', 
-                'filter' => 'throttle:6,1'
+                //'filter' => 'throttle:6,1'
             ]);
         }
 

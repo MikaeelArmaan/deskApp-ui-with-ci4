@@ -2,80 +2,78 @@
 
 @section('content')
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="title">
+                    <h4>Dashboard</h4>
+                </div>
+                <nav aria-label="breadcrumb" role="navigation">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                    </ol>
+                </nav>
+            </div>
+
+        </div>
     </div>
 
-    <div class="row">
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ 'Roles' }}</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $roles }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-lock fa-2x text-gray-300"></i>
-                    </div>
-                </div>
+    <div class="row clearfix progress-box">
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-30">
+            <div class="card-box pd-30 height-100-p">
+                <div class="progress-box text-center">
+                    <input type="text" class="knob dial1" value="{{ $roles }}" data-width="120" data-height="120"
+                        data-linecap="round" data-thickness="0.12" data-bgColor="#fff" data-fgColor="#1b00ff"
+                        data-angleOffset="180" readonly>
+                    <h5 class="text-blue padding-top-10 h5">{{ 'Roles' }}</h5>
+                    <span class="d-block">{{ $roles }} <i class="fa fa-line-chart text-blue"></i></span>
                 </div>
             </div>
         </div>
 
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ 'Permissions' }}</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $permissions }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-air-freshener fa-2x text-gray-300"></i>
-                    </div>
-                </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-30">
+            <div class="card-box pd-30 height-100-p">
+                <div class="progress-box text-center">
+                    <input type="text" class="knob dial2" value="{{ $permissions }}" data-width="120" data-height="120"
+                        data-linecap="round" data-thickness="0.12" data-bgColor="#fff" data-fgColor="#00e091"
+                        data-angleOffset="180" readonly>
+                    <h5 class="text-light-green padding-top-10 h5">{{ 'Permissions' }}</h5>
+                    <span class="d-block">{{ $permissions }} <i class="fa fa-line-chart text-blue"></i></span>
                 </div>
             </div>
         </div>
 
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ 'Activities' }}</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $activities }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-list fa-2x text-gray-300"></i>
-                    </div>
-                </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-30">
+            <div class="card-box pd-30 height-100-p">
+                <div class="progress-box text-center">
+                    <input type="text" class="knob dial3" value="{{ $activities }}" data-width="120" data-height="120"
+                        data-linecap="round" data-thickness="0.12" data-bgColor="#fff" data-fgColor="#f56767"
+                        data-angleOffset="180" readonly>
+                    <h5 class="text-light-orange padding-top-10 h5">{{ 'Activities' }}</h5>
+                    <span class="d-block">{{ $activities }} <i class="fa fa-line-chart text-blue"></i></span>
                 </div>
             </div>
         </div>
 
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
-                <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ 'Users' }}</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $users }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-user fa-2x text-gray-300"></i>
-                    </div>
-                </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-30">
+            <div class="card-box pd-30 height-100-p">
+                <div class="progress-box text-center">
+                    <input type="text" class="knob dial4" value="{{ $users }}" data-width="120" data-height="120"
+                        data-linecap="round" data-thickness="0.12" data-bgColor="#fff" data-fgColor="#a683eb"
+                        data-angleOffset="180" readonly>
+                    <h5 class="text-light-purple padding-top-10 h5">{{ 'Users' }}</h5>
+                    <span class="d-block">{{ $users }} <i class="fa fa-line-chart text-blue"></i></span>
                 </div>
             </div>
         </div>
-
     </div>
     <!-- Content Row -->
-
 @endsection
+
+@push('scripts')
+    <script src="{{ base_url('src/plugins/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="src/plugins/jQuery-Knob-master/jquery.knob.min.js"></script>
+    <script src="{{ base_url('vendors/scripts/dashboard2.js') }}"></script>
+@endpush

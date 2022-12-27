@@ -52,31 +52,7 @@
 
 <body class="login-page">
     @include('partials.loader')
-    <div class="login-header box-shadow">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-            <div class="brand-logo">
-                <a href="login.html">
-                    <img src="vendors/images/deskapp-logo.svg" alt="">
-                </a>
-            </div>
-            <div class="login-menu">
-                <ul>
-                    <li><a href="register.html">Register</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 col-lg-7">
-                    <img src="vendors/images/login-page-img.png" alt="">
-                </div>
-                @yield('content')
-            </div>
-        </div>
-    </div>
-   
+    @yield('content')
     {{-- 
 @yield('modal')
 </div> --}}
@@ -90,7 +66,7 @@
     <script src="<?= base_url('vendors/scripts/script.min.js') ?>"></script>
     <script src="<?= base_url('vendors/scripts/process.js') ?>"></script>
     <script src="<?= base_url('vendors/scripts/layout-settings.js') ?>"></script>
-    <script src="<?= base_url('src/plugins/sweetalert2/sweetalert2.all.js') ?>"></script> 
+    <script src="<?= base_url('src/plugins/sweetalert2/sweetalert2.all.js') ?>"></script>
 
     @stack('scripts')
 </body>

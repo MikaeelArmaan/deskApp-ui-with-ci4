@@ -1,5 +1,7 @@
 @extends('theme.main')
-
+@push('styles')
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+@endpush
 @section('content')
     <!-- Page Heading -->
     <div class="d-flex align-items-center justify-content-between mb-4">
@@ -19,21 +21,22 @@
                         @method('PUT')
 
                         @php
-                            $hasPermissions = $role->permissions->map(function ($permission) {
-                                return $permission->pivot->permission_id;
-                            })
-                            ->toArray();
+                            $hasPermissions = $role->permissions
+                                ->map(function ($permission) {
+                                    return $permission->pivot->permission_id;
+                                })
+                                ->toArray();
                             
-                            $viewMenu = function($permissions) use ($hasPermissions) {
+                            $viewMenu = function ($permissions) use ($hasPermissions) {
                                 $html = '';
-                                foreach($permissions as $menus) {
+                                foreach ($permissions as $menus) {
                                     $html .= render('modules.roles.partials._menus', [
                                         'menus' => $menus,
-                                        'hasPermissions' => $hasPermissions
+                                        'hasPermissions' => $hasPermissions,
                                     ]);
                                 }
                                 return $html;
-                            }
+                            };
                         @endphp
 
                         <h1 class="h5 text-dark pb-2">
@@ -59,14 +62,14 @@
 @endsection
 
 @push('styles')
-<style type="text/css">
-    .list-permissions{
-        list-style-type: none;
-        /*ul {
+    <style type="text/css">
+        .list-permissions {
             list-style-type: none;
-        }*/
-    }
-</style>
+            /*ul {
+                list-style-type: none;
+            }*/
+        }
+    </style>
 @endpush
 
 @push('scripts')
@@ -90,37 +93,44 @@
 
             let data = $(this).serialize();
             let url = $(this).attr('action');
-
+            $(".pre-loader").show();
             $.ajax({
-                url: url,
-                type: 'PUT',
-                data: data,
-                success: ({ message, data }) => {
-                    return setTimeout(() => {
-                        showAlert('alert-success', message);
-                    }, 500);
+                    url: url,
+                    type: 'PUT',
+                    data: data,
+                    success: ({
+                        message,
+                        data
+                    }) => {
+                        $(".pre-loader").hide();
+                        return setTimeout(() => {
+                            showAlert('alert-success', message);
+                        }, 500);
 
-                    $.$.each(data.permissions, function(index, val) {
-                        $('#'.el.name+el.id).prop('checked', true);
-                    });
-                },
-                error: ({ responseJSON }) => {
-                    $.each(responseJSON.messages, (key, val) => {
-                        if (key === 'error') {
-                            showAlert('alert-danger', val);
+                        $.$.each(data.permissions, function(index, val) {
+                            $('#'.el.name + el.id).prop('checked', true);
+                        });
+                    },
+                    error: ({
+                        responseJSON
+                    }) => {
+                        $(".pre-loader").hide();
+                        $.each(responseJSON.messages, (key, val) => {
+                            if (key === 'error') {
+                                showAlert('alert-danger', val);
+                            }
+                        });
+
+                        if (responseJSON.message) {
+                            showAlert('alert-danger', responseJSON.message);
                         }
-                    });
-
-                    if (responseJSON.message) {
-                        showAlert('alert-danger', responseJSON.message);
                     }
-                }
-            })
-            .always(function() {
-                return setTimeout(() => {
-                    hideAlert();
-                }, 3200);
-            });
+                })
+                .always(function() {
+                    return setTimeout(() => {
+                        hideAlert();
+                    }, 3200);
+                });
         });
     </script>
 @endpush

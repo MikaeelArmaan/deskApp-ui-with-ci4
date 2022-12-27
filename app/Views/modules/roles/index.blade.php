@@ -22,7 +22,7 @@
                                     <th width="40">No</th>
                                     <th>Role Name</th>
                                     <th>Assign Permission</th>
-                                    <th width="80"></th>
+                                    <th width="80"> Action</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -36,7 +36,8 @@
 @endsection
 
 @section('modal')
-    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -51,7 +52,8 @@
 
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Role Name:</label>
-                            <input id="name" type="text" class="form-control" name="name" required autocomplete="name" autofocus autofocus placeholder="Enter Role Name...">
+                            <input id="name" type="text" class="form-control" name="name" required
+                                autocomplete="name" autofocus autofocus placeholder="Enter Role Name...">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -65,19 +67,42 @@
 @endsection
 
 @push('scripts')
+    <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+    <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+    <!-- buttons for Export datatable -->
+    <script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.print.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
+    <script src="src/plugins/datatables/js/pdfmake.min.js"></script>
+    <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
     <script type="text/javascript">
         let table = $('.datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax:{
+            ajax: {
                 url: '{{ route_to('roles.data') }}',
                 type: 'GET'
             },
-            columns: [
-                {data: 'index', name: 'index'},
-                {data: 'name', name: 'name'},
-                {data: 'assignment', name: 'assignment'},
-                {data: 'button', name: 'button'}
+            columns: [{
+                    data: 'index',
+                    name: 'index'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'assignment',
+                    name: 'assignment'
+                },
+                {
+                    data: 'button',
+                    name: 'button'
+                }
             ]
         });
 
@@ -124,7 +149,7 @@
             let items = $(this).data('items');
 
             $.each(items, function(key, val) {
-                $('#'+key).val(val);
+                $('#' + key).val(val);
             });
 
             $('#data-form').attr({
@@ -140,21 +165,25 @@
 
             if (confirm("Are you sure want to delete role name?")) {
                 $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    success: (response) => {
-                        return setTimeout(() => {
-                            showAlert('alert-warning', response.message);
-                        }, 500);
-                    }
-                })
-                .always(function() {
-                    table.ajax.reload();
+                        url: url,
+                        type: 'DELETE',
+                        beforeSend: () => {
+                            $(".pre-loader").show();
+                        },
+                        success: (response) => {
+                            $(".pre-loader").hide();
+                            return setTimeout(() => {
+                                showAlert('alert-warning', response.message);
+                            }, 500);
+                        }
+                    })
+                    .always(function() {
+                        table.ajax.reload();
 
-                    return setTimeout(() => {
-                        hideAlert();
-                    }, 3200);
-                });
+                        return setTimeout(() => {
+                            hideAlert();
+                        }, 3200);
+                    });
             }
         });
 
@@ -166,43 +195,47 @@
             let method = $(this).attr('method');
 
             $.ajax({
-                url: url,
-                type: method,
-                data: data,
-                success: (response) => {
-                    $('#formModal').modal('hide');
+                    url: url,
+                    type: method,
+                    data: data,
+                    beforeSend: () => {
+                        $(".pre-loader").show();
+                    },
+                    success: (response) => {
+                        $('#formModal').modal('hide');
+                        $(".pre-loader").hide();
+                        return setTimeout(() => {
+                            showAlert('alert-success', response.message);
+                        }, 500);
+                    },
+                    error: ({
+                        responseJSON
+                    }) => {
+                        $(".pre-loader").hide();
+                        $.each(responseJSON.messages, (key, val) => {
+                            $('#' + key).addClass('is-invalid')
+                                .after('<small class="invalid-feedback">' + val + '</small>');
 
-                    return setTimeout(() => {
-                        showAlert('alert-success', response.message);
-                    }, 500);
-                },
-                error: ({ responseJSON }) => {
-                    console.log(responseJSON);
-                    
-                    $.each(responseJSON.messages, (key, val) => {
-                        $('#'+key).addClass('is-invalid')
-                            .after('<small class="invalid-feedback">'+val+'</small>');
-                        
-                        if (key === 'error') {
+                            if (key === 'error') {
+                                $('#formModal').modal('hide');
+
+                                showAlert('alert-danger', val);
+                            }
+                        });
+
+                        if (responseJSON.message) {
                             $('#formModal').modal('hide');
 
-                            showAlert('alert-danger', val);
+                            showAlert('alert-danger', responseJSON.message);
                         }
-                    });
-
-                    if (responseJSON.message) {
-                        $('#formModal').modal('hide');
-
-                        showAlert('alert-danger', responseJSON.message);
                     }
-                }
-            })
-            .always(function() {
-                table.ajax.reload();
-            });
+                })
+                .always(function() {
+                    table.ajax.reload();
+                });
         });
 
-        $('#formModal').on('show.bs.modal', function(e){
+        $('#formModal').on('show.bs.modal', function(e) {
             $('.form-control')
                 .removeClass('is-invalid')
                 .find('.invalid-feedback')
@@ -213,7 +246,7 @@
             $('#repeat_password').attr('required', false);
         });
 
-        $('#formModal').on('hidden.bs.modal', function(e){
+        $('#formModal').on('hidden.bs.modal', function(e) {
             $('#data-form').trigger('reset');
 
             return setTimeout(() => {

@@ -1,84 +1,96 @@
 <!DOCTYPE html>
-{{-- <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"> --}}
+<html>
+
 <head>
-    <base href="{{ base_url() }}" target="_top">
+    <base href="{{ base_url('/') }}" target="_top">
     <meta charset="utf-8">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Welcome to CILoq!</title>
+    <title>{{ config('app.name', 'Auth') }}</title>
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <!-- Site favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png">
 
-    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> --}}
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <!-- Custom styles for this template-->
-    <link href="{{ base_url('css/app.css') }}" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ base_url('vendors/styles/core.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ base_url('vendors/styles/icon-font.min.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ base_url('src/plugins/datatables/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ base_url('src/plugins/datatables/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ base_url('vendors/styles/style.css') }}">
+    {{-- <link href="{{ base_url('css/app.css') }}" rel="stylesheet"> --}}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            //dataLayer.push(arguments);
+        }
+        //gtag('js', new Date());
+
+        //gtag('config', 'UA-119386393-1');
+    </script>
+    <script src="<?= site_url('src/scripts/jquery.min.js') ?>"></script>
+    <script>
+        $(window).on('load', function() {
+            $('.pre-loader').fadeOut();
+        });
+    </script>
     @stack('styles')
 </head>
 
 <body id="page-top">
-
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+    @include('partials.loader')
+    <!-- Topbar -->
+    @include('theme.header')
+    <!-- End of Topbar -->
 
     <!-- Sidebar -->
     @include('theme.sidebar')
     <!-- End of Sidebar -->
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div class="main-container">
+        <div class="pd-ltr-20 xs-pd-20-10">
+            <div class="min-height-200px">
 
-      <!-- Main Content -->
-      <div id="content">
-
-        <!-- Topbar -->
-        @include('theme.header')
-        <!-- End of Topbar -->
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-
-          <!-- Page Heading -->
-          @yield('content')
-          @yield('modal')
-
+                <!-- Page Heading -->
+                @yield('content')
+                @yield('modal')
+                <div class="footer-wrap pd-20 mb-20 card-box">
+                    <span>Copyright &copy; {{ date('Y') }}</span>
+                </div>
+            </div>
         </div>
-        <!-- /.container-fluid -->
-
-      </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white shadow">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Triana Yulianto {{ date('Y') }}</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- End of Main Content -->
 
-  </div>
-  <!-- End of Page Wrapper -->
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-  <!-- Custom scripts for all pages-->
-  <script src="{{ base_url('js/manifest.js') }}"></script>
-  <script src="{{ base_url('js/vendor.js') }}"></script>
-  <script src="{{ base_url('js/app.js') }}"></script>
-  <script src="{{ base_url('js/custom.js') }}"></script>
-  @stack('scripts')
+    <!-- js -->
+    <script src="{{ base_url('vendors/scripts/core.js') }}"></script>
+    <script src="{{ base_url('vendors/scripts/script.min.js') }}"></script>
+    <script src="{{ base_url('vendors/scripts/process.js') }}"></script>
+    <script src="{{ base_url('vendors/scripts/layout-settings.js') }}"></script>
+    {{-- <script src="{{ base_url('js/manifest.js') }}"></script>
+    <script src="{{ base_url('js/vendor.js') }}"></script>
+    <script src="{{ base_url('js/app.js') }}"></script> --}}
+    <script src="{{ base_url('js/custom.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>

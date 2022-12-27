@@ -1,89 +1,78 @@
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+<div class="left-side-bar">
+    <div class="brand-logo">
+        <a href="index.html">
+            <img src="vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
+            <img src="vendors/images/deskapp-logo-white.svg" alt="" class="light-logo">
         </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route_to('dashboard.index') }}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Main Menu
+        <div class="close-sidebar" data-toggle="left-sidebar-close">
+            <i class="ion-close-round"></i>
         </div>
+    </div>
+    <div class="menu-block customscroll">
+        <div class="sidebar-menu">
+            <ul id="accordion-menu">
+                <!-- Nav Item - Dashboard -->
+                <li>
+                    <a href="{{ route_to('dashboard.index') }}" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-calendar1"></span><span class="mtext">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <div class="dropdown-divider"></div>
+                </li>
+                <!-- Heading -->
+                <li>
+                    <div class="sidebar-small-cap">Main Menu</div>
+                </li>
+                <li>
+                    <div class="dropdown-divider"></div>
+                </li>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-group"></span><span class="mtext">Account</span>
+                    </a>
+                    <ul class="submenu">
+                        @if (defender()->canDo('account.users.index'))
+                            <li><a class="collapse-item" href="{{ route_to('users.index') }}"> 
+                                Users</a></li>
+                        @endif
+                    </ul>
+                </li>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-users"></i>
-                <span>Account</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Account setting:</h6>
-                    @if (defender()->canDo('account.users.index'))
-                        <a class="collapse-item" href="{{ route_to('users.index') }}">Users</a>
-                    @endif
-                </div>
-            </div>
-        </li>
 
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAccess" aria-expanded="true" aria-controls="collapseAccess">
-                <i class="fas fa-fw fa-lock"></i>
-                <span>Access</span>
-            </a>
-            <div id="collapseAccess" class="collapse" aria-labelledby="headingAccess" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Access setting:</h6>
-                    @if (defender()->canDo('access.roles.index'))
-                        <a class="collapse-item" href="{{ route_to('roles.index') }}">Roles</a>
-                    @endif
-                    @if (defender()->canDo('access.permissions.index'))
-                        <a class="collapse-item" href="{{ route_to('permissions.index') }}">Permissions</a>
-                    @endif
-                </div>
-            </div>
-        </li>
 
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-cogs"></i>
-                <span>System</span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">System setting:</h6>
-                    @if (defender()->canDo('system.activity.index'))
-                        <a class="collapse-item" href="{{ route_to('activity.index') }}">User Activity</a>
-                    @endif
-                </div>
-            </div>
-        </li>
+                <!-- Access -->
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-lock"></span><span class="mtext">Access</span>
+                    </a>
+                    <ul class="submenu">
+                        @if (defender()->canDo('access.roles.index'))
+                            <li><a class="collapse-item" href="{{ route_to('roles.index') }}">Roles</a></li>
+                        @endif
+                        @if (defender()->canDo('access.permissions.index'))
+                            <li><a class="collapse-item" href="{{ route_to('permissions.index') }}">Permissions</a></li>
+                        @endif
+                    </ul>
+                </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                <!-- System -->
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-settings2"></span><span class="mtext">System</span>
+                    </a>
+                    <ul class="submenu">
+                        @if (defender()->canDo('system.activity.index'))
+                            <li><a class="collapse-item" href="{{ route_to('activity.index') }}">User Activity</a></li>
+                        @endif
+                    </ul>
+                </li>
+                <li>
+                    <div class="dropdown-divider"></div>
+                </li>
+            </ul>
         </div>
-
-    </ul>
+    </div>
+</div>
+<div class="mobile-menu-overlay"></div>
