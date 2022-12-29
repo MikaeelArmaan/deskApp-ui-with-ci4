@@ -63,7 +63,7 @@
                                     <p>Khan</p>
                                 </a>
                             </li>
-                            
+
                         </ul>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                             Logout
                         </a>
                     @endauth
-                    
+
                 </div>
             </div>
         </div>
@@ -104,13 +104,13 @@
     <script type="text/javascript">
         $(document).on('click', '#logout', function(e) {
             e.preventDefault();
-
+            $(".pre-loader").show();
             $.ajax({
                 url: "{{ route_to('logout') }}",
                 type: "POST",
                 success: (response) => {
-                    const delCookie = Cookies.remove('token');
-
+                    //const delCookie = Cookies.remove('token');
+                    $(".pre-loader").hide();
                     return setTimeout(() => {
                         window.location = "{{ route_to('homepage') }}";
                     }, 1500);
