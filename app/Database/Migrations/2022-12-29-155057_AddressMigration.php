@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CompanyMigration extends Migration
+class AddressMigration extends Migration
 {
     public function up()
     {
@@ -15,32 +15,37 @@ class CompanyMigration extends Migration
                 'unsigned' => true,
                 'auto_increment' => true
             ],
-            'name' => [
-                'type' => 'varchar',
-                'constraint' => 100,
+            'address1' => [
+                'type' => 'text'
             ],
-            'gst' => [
-                'type' => 'varchar',
-                'constraint' => 20,
-                'null' => true
-            ],
-            'email' => [
-                'type' => 'varchar',
-                'constraint' => 100,
-            ],
-            'telephone' => [
-                'type' => 'varchar',
-                'constraint' => 14,
-                'null' => true
-            ],
-            'image' => [
+            'address2' => [
                 'type' => 'text',
+                'null' => true
+            ],
+            'locality' => [
+                'type' => 'varchar',
+                'constraint' => 100,
                 'null' => true,
             ],
-            'default_address' => [
-                'type' => 'INT',
-                'constraint' => 3,
-                'null' => true
+            'city' => [
+                'type' => 'varchar',
+                'constraint' => 100,
+                'null' => true,
+            ],
+            'pincode' => [
+                'type' => 'varchar',
+                'constraint' => 100,
+                'null' => true,
+            ],
+            'state' => [
+                'type' => 'varchar',
+                'constraint' => 100,
+                'null' => true,
+            ],
+            'country' => [
+                'type' => 'varchar',
+                'constraint' => 100,
+                'null' => true,
             ],
             'status' => [
                 'type'       => 'INT',
@@ -50,11 +55,12 @@ class CompanyMigration extends Migration
         ]);
 
         $this->forge->addPrimaryKey('id');
-        $this->forge->addForeignKey('default_address', 'address', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('company', true);
+
+        $this->forge->createTable('address', true);
     }
+
     public function down()
     {
-        $this->forge->dropTable('company', true);
+        $this->forge->dropTable('address', true);
     }
 }

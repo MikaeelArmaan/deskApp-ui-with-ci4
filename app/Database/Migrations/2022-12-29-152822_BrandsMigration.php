@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CompanyMigration extends Migration
+class BrandsMigration extends Migration
 {
     public function up()
     {
@@ -19,28 +19,22 @@ class CompanyMigration extends Migration
                 'type' => 'varchar',
                 'constraint' => 100,
             ],
-            'gst' => [
-                'type' => 'varchar',
-                'constraint' => 20,
-                'null' => true
-            ],
-            'email' => [
-                'type' => 'varchar',
-                'constraint' => 100,
-            ],
-            'telephone' => [
-                'type' => 'varchar',
-                'constraint' => 14,
-                'null' => true
-            ],
             'image' => [
                 'type' => 'text',
-                'null' => true,
-            ],
-            'default_address' => [
-                'type' => 'INT',
-                'constraint' => 3,
                 'null' => true
+            ],
+            'short_description' => [
+                'type' => 'text',
+                'null' => true
+            ],
+            'description' => [
+                'type' => 'TEXT',
+                'null' => true
+            ],
+            'sequence' => [
+                'type'       => 'INT',
+                'constraint' => 10,
+                'default'    => 9999,
             ],
             'status' => [
                 'type'       => 'INT',
@@ -50,11 +44,12 @@ class CompanyMigration extends Migration
         ]);
 
         $this->forge->addPrimaryKey('id');
-        $this->forge->addForeignKey('default_address', 'address', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('company', true);
+
+        $this->forge->createTable('brands', true);
     }
+
     public function down()
     {
-        $this->forge->dropTable('company', true);
+        $this->forge->dropTable('brands', true);
     }
 }
