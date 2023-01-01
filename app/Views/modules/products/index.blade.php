@@ -6,7 +6,6 @@
 
     <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/jquery.datatables.min.css">
 @endpush
 @section('content')
     <!-- Page Heading -->
@@ -78,11 +77,15 @@
         let table = $('.datatable').DataTable({
             processing: true,
             serverSide: true,
+            language: {
+                processing: '<div class="loading-text">Loading...</div>',
+            },
             //responsive: true,
             ajax: {
                 url: '{{ route_to('products.data') }}',
                 type: 'GET'
             },
+            //order: [[ 13, 'asc' ]],
             columns: [{
                     data: 'index',
                     name: 'index'
@@ -135,7 +138,7 @@
                     data: 'gst',
                     name: 'gst'
                 },
-                
+
                 {
                     data: 'sequence',
                     name: 'sequence'
@@ -150,8 +153,8 @@
                 },
             ]
         });
+       
 
-     
         $(document).on('click', '.btn-delete', function(e) {
             e.preventDefault();
 

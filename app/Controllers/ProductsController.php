@@ -47,6 +47,7 @@ class ProductsController extends BaseController
             ->select('products.*,brands.name as brand_name, categories.name as category_name')
             ->join('brands', 'products.brand_id = brands.id', 'left')
             ->join('categories', 'products.category_id = categories.id', 'left')
+            ->where(['products.deleted_at' => null])
             ->addIndexColumn()
             ->addColumn('button', function ($data) {
                 return render('modules.products.partials._table_button', compact('data'));
@@ -63,6 +64,9 @@ class ProductsController extends BaseController
             // ->editColumn('status', function ($item) {
             //     return render('partials.statusButton', compact('item'));
             // })
+            ->filter(function ($query) {
+                return $query->orderBy('products.sequence','ASC');
+            })
             ->rawColumns(['button'])
             ->make();
     }
