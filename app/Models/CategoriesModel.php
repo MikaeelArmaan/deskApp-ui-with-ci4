@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class CategoriesModel extends Model
+class CategoriesModel extends Eloquent
 {
     protected $DBGroup          = 'default';
     protected $table            = 'categories';
@@ -12,20 +12,51 @@ class CategoriesModel extends Model
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
+    protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
-
-    // Dates
-    protected $useTimestamps = false;
-    protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
+    protected $allowedFields    = [
+        'name',
+        'short_description',
+        'description',
+        'status',
+    ];
+    protected $fillable = [
+        'name',
+        'short_description',
+        'description',
+        'status',
+    ];
 
     // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
+    protected $validationRules      = [
+        'name' => 'required|is_unique[categories.name,id,{id}]',
+        'short_description' => 'required',
+        'description' => 'required',
+    ];
+
+    protected $validationMessages   = [
+        'name' => [
+            'is_unique' => 'This Category name is already taken.',
+            'required' => 'Category Name is required',
+        ],
+        'description' => [
+            'required' => 'Category Description is required',
+        ],
+    ];
+
+    protected $validationRulesForImage      = [
+        'image' => [
+            'uploaded[image]',
+            'mime_in[image,image/jpg,image/jpeg,image/png]'
+        ]
+    ];
+
+    protected $validationMessageForImage  = [
+        'image' => [
+            'uploaded' => 'Already Uploaded.',
+            'mime_in' => 'Brand Logo should be of Type jpg,jpeg,png',
+        ]
+    ];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
@@ -39,4 +70,24 @@ class CategoriesModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    function getValidationRules()
+    {
+        return $this->validationRules;
+    }
+
+    function getValidationMessages()
+    {
+        return $this->validationMessages;
+    }
+
+    function getValidationRulesForImage()
+    {
+        return $this->validationRulesForImage;
+    }
+
+    function getValidationMessageForImage()
+    {
+        return $this->validationMessageForImage;
+    }
 }

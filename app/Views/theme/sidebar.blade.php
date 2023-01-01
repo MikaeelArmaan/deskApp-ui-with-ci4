@@ -34,13 +34,11 @@
                     </a>
                     <ul class="submenu">
                         @if (defender()->canDo('account.users.index'))
-                            <li><a class="collapse-item" href="{{ route_to('users.index') }}"> 
-                                Users</a></li>
+                            <li><a class="collapse-item" href="{{ route_to('users.index') }}">
+                                    Users</a></li>
                         @endif
                     </ul>
                 </li>
-
-
 
                 <!-- Access -->
                 <li class="dropdown">
@@ -58,19 +56,80 @@
                 </li>
 
                 <!-- System -->
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-settings2"></span><span class="mtext">System</span>
-                    </a>
-                    <ul class="submenu">
-                        @if (defender()->canDo('system.activity.index'))
+                @if (defender()->canDo('system.activity.index'))
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-settings2"></span><span class="mtext">System</span>
+                        </a>
+                        <ul class="submenu">
+
                             <li><a class="collapse-item" href="{{ route_to('activity.index') }}">User Activity</a></li>
-                        @endif
-                    </ul>
-                </li>
+
+                        </ul>
+                    </li>
+                @endif
                 <li>
                     <div class="dropdown-divider"></div>
                 </li>
+                <!-- Modules -->
+                <li>
+                    <div class="sidebar-small-cap">Modules</div>
+                </li>
+                @if (defender()->canDo('products.activity.index'))
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="fa fa-product-hunt micon"></span><span class="mtext">Products</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a class="collapse-item" href="{{ route_to('products.index') }}">Products List</a></li>
+
+                    </ul>
+                </li>
+            @endif
+                @if (defender()->canDo('brands.activity.index'))
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon fa fa-bitcoin"></span><span class="mtext">Brands</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a class="collapse-item" href="{{ route_to('brands.index') }}">Brands List</a></li>
+
+                        </ul>
+                    </li>
+                @endif
+                @if (defender()->canDo('categories.activity.index'))
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon fa fa-list-ol"></span><span class="mtext">Categories</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a class="collapse-item" href="{{ route_to('categories.index') }}">Categories List</a></li>
+
+                        </ul>
+                    </li>
+                @endif
+                @if (defender()->canDo('company.activity.index'))
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon fa fa-industry"></span><span class="mtext">Company</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a class="collapse-item" href="{{ route_to('company.index') }}">Company List</a></li>
+
+                        </ul>
+                    </li>
+                @endif
+                @if (defender()->canDo('customers.activity.index'))
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon fa fa-group"></span><span class="mtext">Customers</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a class="collapse-item" href="{{ route_to('customers.index') }}">Customer List</a></li>
+
+                        </ul>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>

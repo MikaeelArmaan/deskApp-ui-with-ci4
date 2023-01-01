@@ -33,6 +33,31 @@ class ProductsMigration extends Migration
                 'type' => 'text',
                 'null' => true
             ],
+            'quantity' => [
+                'type' => 'INT',
+                'constraint' => '11',
+                'null' => true
+            ],
+            'retailer_price' => [
+                'type' => 'DECIMAL',
+                'constraint' => '10,2',
+                'null' => true
+            ],
+            'distributor_price' => [
+                'type' => 'DECIMAL',
+                'constraint' => '10,2',
+                'null' => true
+            ],
+            'purchase_price' => [
+                'type' => 'DECIMAL',
+                'constraint' => '10,2',
+                'null' => true
+            ],
+            'sale_price' => [
+                'type' => 'DECIMAL',
+                'constraint' => '10,2',
+                'null' => true
+            ],
             'short_description' => [
                 'type' => 'text',
                 'null' => true
@@ -46,22 +71,11 @@ class ProductsMigration extends Migration
                 'constraint' => 15,
                 'null' => true
             ],
-            'cgst' => [
+            'gst' => [
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',
                 'null' => FALSE,
                 'default' => 2.50
-            ],
-            'sgst' => [
-                'type' => 'DECIMAL',
-                'constraint' => '10,2',
-                'null' => FALSE,
-                'default' => 2.50
-            ],
-            'stock' => [
-                'type'       => 'INT',
-                'constraint' => 10,
-                'default'    => 0,
             ],
             'sequence' => [
                 'type'       => 'INT',
@@ -72,6 +86,18 @@ class ProductsMigration extends Migration
                 'type'       => 'INT',
                 'constraint' => 2,
                 'default'    => 0,
+            ],
+            'created_at' => [
+            	'type' => 'datetime',
+            	'null' => true
+            ],
+            'updated_at' => [
+            	'type' => 'datetime',
+            	'null' => true
+            ],
+            'deleted_at' => [
+            	'type' => 'datetime',
+            	'null' => true
             ],
         ]);
 

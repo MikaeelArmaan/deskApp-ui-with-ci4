@@ -39,6 +39,44 @@ class PermissionSeeder extends Seeder
 					'delete' => 'Can delete permissions data'
 				],
 			],
+			'modules' => [
+				'brands' => [
+					'index'  => 'Can read brands data',
+					'create' => 'Can create brands data',
+					'update' => 'Can update brands data',
+					'delete' => 'Can delete brands data'
+				],
+				'products' => [
+					'index'  => 'Can read products data',
+					'create' => 'Can create products data',
+					'update' => 'Can update products data',
+					'delete' => 'Can delete products data'
+				],
+				'address' => [
+					'index'  => 'Can read address data',
+					'create' => 'Can create address data',
+					'update' => 'Can update address data',
+					'delete' => 'Can delete address data'
+				],
+				'categories' => [
+					'index'  => 'Can read categories data',
+					'create' => 'Can create categories data',
+					'update' => 'Can update categories data',
+					'delete' => 'Can delete categories data'
+				],
+				'customers' => [
+					'index'  => 'Can read customers data',
+					'create' => 'Can create customers data',
+					'update' => 'Can update customers data',
+					'delete' => 'Can delete customers data'
+				],
+				'company' => [
+					'index'  => 'Can read company data',
+					'create' => 'Can create company data',
+					'update' => 'Can update company data',
+					'delete' => 'Can delete company data'
+				],
+			],
 			'main' => [
 				// when the menu doesn't have group insert it into here
 				// for example the dashboard menu bellow
@@ -53,9 +91,9 @@ class PermissionSeeder extends Seeder
 			foreach ($groups as $menu => $menus) {
 				foreach ($menus as $index => $value) {
 					$data[] = [
-						'name' 			=> $group.'.'.$menu.'.'.$index,
+						'name' 			=> $group . '.' . $menu . '.' . $index,
 						'readable_name' => $value,
-			      'created_at' => date("Y-m-d H:i:s")
+						'created_at' => date("Y-m-d H:i:s")
 					];
 				}
 			}

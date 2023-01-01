@@ -52,6 +52,18 @@ class AddressMigration extends Migration
                 'constraint' => 2,
                 'default'    => 0,
             ],
+            'created_at' => [
+                'type' => 'datetime',
+                'null' => true
+            ],
+            'updated_at' => [
+                'type' => 'datetime',
+                'null' => true
+            ],
+            'deleted_at' => [
+                'type' => 'datetime',
+                'null' => true
+            ],
         ]);
 
         $this->forge->addPrimaryKey('id');

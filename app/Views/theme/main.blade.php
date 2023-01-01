@@ -23,6 +23,8 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="{{ base_url('vendors/styles/core.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ base_url('vendors/styles/icon-font.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ base_url('vendors/fonts/font-awesome/css/font-awesome.min.css') }}">
+
     <link rel="stylesheet" type="text/css"
         href="{{ base_url('src/plugins/datatables/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css"
@@ -69,7 +71,8 @@
                 @yield('modal')
                 <div class="footer-wrap pd-20 mb-20 card-box">
                     <span>&copy; {{ date('Y') }} <a href="https://rockmontwebsolutions.in/"
-                            target="_blank">RockmontWebSolutions</a> Developed By : <a href="mailto:armaancomps@gmail.com">Arman Khan</a></span>
+                            target="_blank">RockmontWebSolutions</a> Developed By : <a
+                            href="mailto:armaancomps@gmail.com">Arman Khan</a></span>
                 </div>
             </div>
         </div>
