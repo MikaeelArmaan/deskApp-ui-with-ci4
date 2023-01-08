@@ -75,17 +75,28 @@
                 <li>
                     <div class="sidebar-small-cap">Modules</div>
                 </li>
-                @if (defender()->canDo('products.activity.index'))
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="fa fa-product-hunt micon"></span><span class="mtext">Products</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a class="collapse-item" href="{{ route_to('products.index') }}">Products List</a></li>
+                @if (defender()->canDo('orders.activity.index'))
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="fa fa-shopping-cart micon"></span><span class="mtext">Orders</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a class="collapse-item" href="{{ route_to('orders.index') }}">Orders List</a></li>
 
-                    </ul>
-                </li>
-            @endif
+                        </ul>
+                    </li>
+                @endif
+                @if (defender()->canDo('products.activity.index'))
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="fa fa-product-hunt micon"></span><span class="mtext">Products</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a class="collapse-item" href="{{ route_to('products.index') }}">Products List</a></li>
+
+                        </ul>
+                    </li>
+                @endif
                 @if (defender()->canDo('brands.activity.index'))
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
@@ -103,7 +114,8 @@
                             <span class="micon fa fa-list-ol"></span><span class="mtext">Categories</span>
                         </a>
                         <ul class="submenu">
-                            <li><a class="collapse-item" href="{{ route_to('categories.index') }}">Categories List</a></li>
+                            <li><a class="collapse-item" href="{{ route_to('categories.index') }}">Categories List</a>
+                            </li>
 
                         </ul>
                     </li>

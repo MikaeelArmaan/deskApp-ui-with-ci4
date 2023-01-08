@@ -13,14 +13,25 @@ class AddressMigration extends Migration
                 'type' => 'bigint',
                 'constraint' => 20,
                 'unsigned' => true,
-                'auto_increment' => true
+                'auto_increment' => true,
+            ],
+            'belongsto_id' => [
+                'type' => 'INT',
+                'constraint' => 4,
+                'COMMENT' => '1-Customers id,2-company id,3-billing address id,4-shipping address id',
+            ],
+            'type' => [
+                'type' => 'INT',
+                'constraint' => 4,
+                'COMMENT' => '1-Customers,2-company,3-billing,4-shipping',
             ],
             'address1' => [
-                'type' => 'text'
+                'type' => 'text',
+                'null' => true,
             ],
             'address2' => [
                 'type' => 'text',
-                'null' => true
+                'null' => true,
             ],
             'locality' => [
                 'type' => 'varchar',

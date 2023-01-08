@@ -3,71 +3,69 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\BrandsModel;
-use App\Models\CategoriesModel;
+use App\Models\CustomersModel;
+use App\Models\OrdersModel;
 use App\Models\ProductsModel;
 use Irsyadulibad\DataTables\DataTables;
 use Illuminate\Database\Capsule\Manager as DB;
 
-class ProductsController extends BaseController
+class OrdersController extends BaseController
 {
     protected $model;
-    protected $categorymodel;
-    protected $brandsmodel;
+    protected $productsmodel;
+    protected $customersmodel;
 
     function __construct()
     {
-        $this->model = new ProductsModel();
-        $this->categorymodel = new CategoriesModel();
-        $this->brandsmodel = new BrandsModel();
+        $this->model = new ordersModel();
+        $this->productsmodel = new ProductsModel();
+        $this->customersmodel = new CustomersModel();
     }
 
     public function index()
     {
-        defender('api')->canDo('modules.products.index');
+        defender('api')->canDo('modules.orders.index');
 
-        return render('modules.products.index');
+        return render('modules.orders.index');
     }
 
     public function create($id = null)
     {
-        defender('api')->canDo('modules.products.create');
-        $data['category'] = $this->categorymodel->all()->pluck('name', 'id');
-        $data['brand'] = $this->brandsmodel->all()->pluck('name', 'id');
-        $data['url'] = $id ? route_to('products.update', $id) : route_to('products.create');
+        defender('api')->canDo('modules.orders.create');
+        $data['customers'] = $this->customersmodel->all()->pluck('firstname', 'id');
+        $data['products'] = $this->productsmodel->all($this->productsmodel->getColumns());
+        $data['url'] = $id ? route_to('orders.update', $id) : route_to('orders.create');
         $data['method'] = $id ? 'PUT' : 'POST';
-        $data['product'] = $id ? $this->model->find($id) : null;
-        return render('modules.products.detail', $data);
+        $data['order'] = $id ? $this->model->find($id) : null;
+        return render('modules.orders.create', $data);
     }
 
 
     public function getData()
     {
-        defender('api')->canDo('modules.products.index');
+        defender('api')->canDo('modules.orders.index');
 
-        return DataTables::use('products')
-            ->select('products.*,brands.name as brand_name, categories.name as category_name')
-            ->join('brands', 'products.brand_id = brands.id', 'left')
-            ->join('categories', 'products.category_id = categories.id', 'left')
-            ->where(['products.deleted_at' => null])
+        return DataTables::use('orders')
+            // ->select('orders.*,brands.name as brand_name, categories.name as category_name')
+            // ->join('brands', 'orders.brand_id = brands.id', 'left')
+            // ->join('categories', 'orders.category_id = categories.id', 'left')
+            // ->where(['orders.deleted_at' => null])
             ->addIndexColumn()
             ->addColumn('button', function ($data) {
-                return render('modules.products.partials._table_button', compact('data'));
+                return render('modules.orders.partials._table_button', compact('data'));
             })
             ->editColumn('status', function ($item) {
                 return ($item == 1) ? 'Active' : 'Inactive';
             })
-            ->editColumn('short_description', function ($item) {
+            ->editColumn('notes', function ($item) {
                 return mb_strimwidth($item, 0, 25, '...');;
             })
-            ->editColumn('description', function ($item) {
-                return mb_strimwidth($item, 0, 50, '...');;
-            })
+
             // ->editColumn('status', function ($item) {
             //     return render('partials.statusButton', compact('item'));
             // })
             ->filter(function ($query) {
-                return $query->orderBy('products.sequence', 'ASC');
+                return $query->orderBy('orders.updated_at', 'ASC');
             })
             ->rawColumns(['button'])
             ->make();
@@ -77,7 +75,7 @@ class ProductsController extends BaseController
     {
 
         if ($this->request->getMethod() === 'post')
-            defender('api')->canDo('modules.products.create');
+            defender('api')->canDo('modules.orders.create');
         if (
             !$this->validate(
                 $this->model->getValidationRules(),
@@ -87,10 +85,10 @@ class ProductsController extends BaseController
             return $this->fail($this->validator->getErrors());
         }
         if ($this->request->getMethod() === 'put')
-            defender('api')->canDo('modules.products.update');
+            defender('api')->canDo('modules.orders.update');
 
 
-        // If Product logo uploaded validation check
+        // If order logo uploaded validation check
         $data = (array) $this->request->getPost();
 
 
@@ -106,7 +104,7 @@ class ProductsController extends BaseController
 
         //     if ($uploadedFileData = $this->doFileUpload(
         //         $image,
-        //         WRITEPATH . '/uploads/Products/' . strtolower($data['name']),
+        //         WRITEPATH . '/uploads/orders/' . strtolower($data['name']),
         //         $this->model->getValidationRulesForImage(),
         //         $this->model->getValidationMessageForImage()
         //     )) {
@@ -115,13 +113,13 @@ class ProductsController extends BaseController
         //  }
         if ($this->request->getMethod() === 'put') {
             $data = (array) $this->request->getRawInput();
-            $message = 'Product data was updated';
+            $message = 'order data was updated';
         }
         $data['status'] = (array_key_exists('status', $data)) ? 1 : 0;
 
         DB::beginTransaction();
         try {
-            $newProduct = $this->model->updateOrCreate(['id' => $id], $data);
+            $neworder = $this->model->updateOrCreate(['id' => $id], $data);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -131,22 +129,22 @@ class ProductsController extends BaseController
 
         return $this->respondCreated([
             'status'  => $this->codes['created'],
-            'message' => $message ?? 'Product data was created',
-            'data'    => $newProduct
+            'message' => $message ?? 'order data was created',
+            'data'    => $neworder
         ]);
     }
 
     public function destroy($id)
     {
-        defender('api')->canDo('modules.products.delete');
+        defender('api')->canDo('modules.orders.delete');
 
-        $product = $this->model->find($id);
+        $order = $this->model->find($id);
 
-        $product->delete();
+        $order->delete();
 
         return $this->respondDeleted([
             'status'  => $this->codes['deleted'],
-            'message' => 'Product data was deleted',
+            'message' => 'order data was deleted',
         ]);
     }
 }

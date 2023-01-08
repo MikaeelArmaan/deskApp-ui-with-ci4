@@ -15,6 +15,12 @@ class CustomersMigration extends Migration
                 'unsigned' => true,
                 'auto_increment' => true
             ],
+            'type' => [
+                'type' => 'INT',
+                'constraint' => 4,
+                'default' => 1,
+                'COMMENT' => '1-retailer,2-distributor',
+            ],
             'firstname' => [
                 'type' => 'varchar',
                 'constraint' => 100,
@@ -38,23 +44,23 @@ class CustomersMigration extends Migration
                 'constraint' => 3,
                 'null' => true
             ],
-            
+
             'status' => [
                 'type'       => 'INT',
                 'constraint' => 2,
                 'default'    => 0,
             ],
             'created_at' => [
-            	'type' => 'datetime',
-            	'null' => true
+                'type' => 'datetime',
+                'null' => true
             ],
             'updated_at' => [
-            	'type' => 'datetime',
-            	'null' => true
+                'type' => 'datetime',
+                'null' => true
             ],
             'deleted_at' => [
-            	'type' => 'datetime',
-            	'null' => true
+                'type' => 'datetime',
+                'null' => true
             ],
         ]);
 

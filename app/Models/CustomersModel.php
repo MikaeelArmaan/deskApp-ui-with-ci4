@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class CustomersModel extends Model
+class CustomersModel extends Eloquent
 {
     protected $DBGroup          = 'default';
     protected $table            = 'customers';
@@ -14,18 +14,43 @@ class CustomersModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
-
-    // Dates
-    protected $useTimestamps = false;
-    protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
+    protected $allowedFields    = [
+        'firstname',
+        'lastname',
+        'email',
+        'telephone',
+        'default_address',
+        'status',
+    ];
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'email',
+        'telephone',
+        'default_address',
+        'status',
+    ];
 
     // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
+    protected $validationRules      = [
+        'name' => 'required|is_unique[customers.email,id,{id}]',
+        'telephone' => 'required',
+        'default_address' => 'required',
+    ];
+
+    protected $validationMessages   = [
+        'email' => [
+            'is_unique' => 'This Email is already taken.',
+            'required' => 'Email is required',
+        ],
+        'telephone' => [
+            'required' => 'Phone NUmber is required',
+        ],
+        'default_address' => [
+            'required' => 'Address is required',
+        ],
+    ];
+
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
@@ -39,4 +64,14 @@ class CustomersModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    function getValidationRules()
+    {
+        return $this->validationRules;
+    }
+
+    function getValidationMessages()
+    {
+        return $this->validationMessages;
+    }
 }

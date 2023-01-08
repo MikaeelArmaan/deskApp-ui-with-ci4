@@ -71,7 +71,7 @@ $routes->group('administrator', ['filter' => 'verified'], function ($routes) {
         $routes->put('(:any)/update', 'CategoriesController::store/$1', ['as' => 'categories.update', 'filter' => 'permission:modules.categories.update']);
         $routes->delete('(:any)/delete', 'CategoriesController::destroy/$1', ['as' => 'categories.delete', 'filter' => 'permission:modules.categories.delete']);
     });
-   
+
     // Products routes crud
     $routes->group('products', ['filter' => 'role:*'], function ($routes) {
         $routes->get('/', 'ProductsController::index', ['as' => 'products.index', 'filter' => 'permission:modules.products.index']);
@@ -82,7 +82,7 @@ $routes->group('administrator', ['filter' => 'verified'], function ($routes) {
         $routes->put('(:any)/edit', 'ProductsController::store/$1', ['as' => 'products.update', 'filter' => 'permission:modules.products.update']);
         $routes->delete('(:any)/delete', 'ProductsController::destroy/$1', ['as' => 'products.delete', 'filter' => 'permission:modules.products.delete']);
     });
-    
+
     // Companies routes crud
     $routes->group('company', ['filter' => 'role:*'], function ($routes) {
         $routes->get('/', 'CompanyController::index', ['as' => 'company.index', 'filter' => 'permission:modules.company.index']);
@@ -91,7 +91,7 @@ $routes->group('administrator', ['filter' => 'verified'], function ($routes) {
         $routes->put('(:any)/update', 'CompanyController::store/$1', ['as' => 'company.update', 'filter' => 'permission:modules.company.update']);
         $routes->delete('(:any)/delete', 'CompanyController::destroy/$1', ['as' => 'company.delete', 'filter' => 'permission:modules.company.delete']);
     });
-    
+
     // Customers routes crud
     $routes->group('customers', ['filter' => 'role:*'], function ($routes) {
         $routes->get('/', 'CustomersController::index', ['as' => 'customers.index', 'filter' => 'permission:modules.customers.index']);
@@ -99,5 +99,16 @@ $routes->group('administrator', ['filter' => 'verified'], function ($routes) {
         $routes->post('/', 'CustomersController::store', ['as' => 'customers.create', 'filter' => 'permission:modules.customers.create']);
         $routes->put('(:any)/update', 'CustomersController::store/$1', ['as' => 'customers.update', 'filter' => 'permission:modules.customers.update']);
         $routes->delete('(:any)/delete', 'CustomersController::destroy/$1', ['as' => 'customers.delete', 'filter' => 'permission:modules.customers.delete']);
+    });
+
+    // Orders routes crud
+    $routes->group('orders', ['filter' => 'role:*'], function ($routes) {
+        $routes->get('/', 'OrdersController::index', ['as' => 'orders.index', 'filter' => 'permission:modules.orders.index']);
+        $routes->get('data', 'OrdersController::getData', ['as' => 'orders.data', 'filter' => 'permission:modules.orders.index']);
+        $routes->get('create', 'OrdersController::create', ['as' => 'orders.create', 'filter' => 'permission:modules.orders.create']);
+        $routes->post('create', 'OrdersController::store', ['as' => 'orders.create', 'filter' => 'permission:modules.orders.create']);
+        $routes->get('(:num)/edit', 'OrdersController::create/$1', ['as' => 'orders.update', 'filter' => 'permission:modules.orders.update']);
+        $routes->put('(:any)/edit', 'OrdersController::store/$1', ['as' => 'orders.update', 'filter' => 'permission:modules.orders.update']);
+        $routes->delete('(:any)/delete', 'OrdersController::destroy/$1', ['as' => 'orders.delete', 'filter' => 'permission:modules.orders.delete']);
     });
 });

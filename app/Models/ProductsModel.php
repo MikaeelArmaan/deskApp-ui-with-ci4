@@ -15,6 +15,7 @@ class ProductsModel extends Eloquent
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'id',
         'name',
         'category_id',
         'brand_id',
@@ -27,8 +28,7 @@ class ProductsModel extends Eloquent
         'short_description',
         'description',
         'hsn',
-        'cgst',
-        'sgst',
+        'gst',
         'sequence',
         'status',
     ];
@@ -50,6 +50,10 @@ class ProductsModel extends Eloquent
         'status',
     ];
 
+    public function getColumns()
+    {
+        return $this->allowedFields;
+    }
     // Validation
     protected $validationRules      = [
         'name' => 'required|is_unique[products.name,id,{id}]',
@@ -116,6 +120,7 @@ class ProductsModel extends Eloquent
     // }
     public function brand()
     {
-        return $this->hasOne(BrandsModel::class, 'id','brand_id');
+        return $this->hasOne(BrandsModel::class, 'id', 'brand_id');
     }
+
 }

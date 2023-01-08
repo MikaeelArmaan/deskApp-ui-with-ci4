@@ -76,6 +76,12 @@ class PermissionSeeder extends Seeder
 					'update' => 'Can update company data',
 					'delete' => 'Can delete company data'
 				],
+				'orders' => [
+					'index'  => 'Can read Orders data',
+					'create' => 'Can create Orders data',
+					'update' => 'Can update Orders data',
+					'delete' => 'Can delete Orders data'
+				],
 			],
 			'main' => [
 				// when the menu doesn't have group insert it into here

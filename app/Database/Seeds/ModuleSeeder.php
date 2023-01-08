@@ -12,5 +12,7 @@ class ModuleSeeder extends Seeder
 		$this->call(CategoriesSeeder::class);
 		$this->call(CompanySeeder::class);
 		$this->call(ProductsSeeder::class);
+		$this->call(CustomersSeeder::class);
+		$this->call(AddressSeeder::class);
 	}
 }

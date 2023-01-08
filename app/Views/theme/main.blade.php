@@ -15,7 +15,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png">
 
     <!-- Mobile Specific Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=0.80, maximum-scale=1">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -47,6 +47,7 @@
     <script>
         $(window).on('load', function() {
             $('.pre-loader').fadeOut();
+           
         });
     </script>
     @stack('styles')
@@ -63,17 +64,15 @@
     <!-- End of Sidebar -->
 
     <div class="main-container">
-        <div class="pd-ltr-20 xs-pd-20-10">
-            <div class="min-height-200px">
+        <div class="xs-pd-20-10">
 
-                <!-- Page Heading -->
-                @yield('content')
-                @yield('modal')
-                <div class="footer-wrap pd-20 mb-20 card-box">
-                    <span>&copy; {{ date('Y') }} <a href="https://rockmontwebsolutions.in/"
-                            target="_blank">RockmontWebSolutions</a> Developed By : <a
-                            href="mailto:armaancomps@gmail.com">Arman Khan</a></span>
-                </div>
+            <!-- Page Heading -->
+            @yield('content')
+            @yield('modal')
+            <div class="footer-wrap pd-20 mb-20 card-box">
+                <span>&copy; {{ date('Y') }} <a href="https://rockmontwebsolutions.in/"
+                        target="_blank">RockmontWebSolutions</a> Developed By : <a
+                        href="mailto:armaancomps@gmail.com">Arman Khan</a></span>
             </div>
         </div>
     </div>
@@ -81,9 +80,9 @@
 
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
+    {{-- <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
-    </a>
+    </a> --}}
 
     <!-- js -->
     <script src="{{ base_url('vendors/scripts/core.js') }}"></script>
