@@ -2,3 +2,16 @@
 .addressExist {
   display: none;
 }
+
+/* Media Query for low resolution  Tablets, Ipads */
+@media (max-width: 767px) {
+  .wizard-content .wizard.vertical > .steps {
+    width: 100%;
+  }
+  .wizard-content .wizard.vertical > .steps > ul > li {
+    width: 33%;
+  }
+  .wizard-content .wizard > .content {
+    overflow: unset;
+  }
+}

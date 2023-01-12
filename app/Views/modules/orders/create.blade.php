@@ -16,227 +16,222 @@
             <div id="alert" class="collapse">
                 <div class="alert" role="alert"></div>
             </div>
-
-            <div class="pd-20 card-box mb-30">
-               
-                <form>
-
-                    <div class="pd-20 card-box mb-30">
-                        <div class="clearfix">
-                            <h4 class="text-blue h4 pull-left">Order Create</h4>
-                            <a href="#" class="btn btn-primary btn-sm scroll-click pull-right" rel="content-y" data-toggle="collapse"
-                                role="button"><i class="fa fa-arrow-left"></i> Back</a>
-                        </div>
-                        <div class="wizard-content">
-                            <div class="tab-wizard wizard-circle wizard vertical">
-                                <h5>Order Info</h5>
-                                <section>
-                                    <div class="dropdown-divider"></div>
-                                    <div class="row  mb-20">
-                                        <div class="col-md-4 col-sm-12">
-                                            <label for="invoice_number" class="col-sm-2">
-                                                <span
-                                                    class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Invoice_Number</span></label>
-                                            <input type="text" class="form-control mt-n3 " id="invoice_number">
-                                        </div>
-
-                                        <div class="col-md-4 col-sm-12">
-                                            <label for="invoice_date" class="col-sm-2">
-                                                <span
-                                                    class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Invoice_Date</span></label>
-                                            <input type="text" class="form-control mt-n3 " id="invoice_date">
-                                        </div>
-                                        <div class="col-md-4 col-sm-12">
-                                            <label for="delivery_date" class="col-sm-2">
-                                                <span
-                                                    class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Delivery_Date</span></label>
-                                            <input type="text" class="form-control mt-n3" id="delivery_date">
-                                        </div>
+            <form>
+                <div class="pd-20 card-box mb-30">
+                    <div class="clearfix">
+                        <h4 class="text-blue h4 pull-left">Order Create</h4>
+                        <a href="#" class="btn btn-primary btn-sm scroll-click pull-right" rel="content-y"
+                            data-toggle="collapse" role="button"><i class="fa fa-arrow-left"></i> Back</a>
+                    </div>
+                    <div class="wizard-content">
+                        <div class="tab-wizard wizard-circle wizard vertical">
+                            <h5>Order Info</h5>
+                            <section>
+                                <div class="dropdown-divider"></div>
+                                <div class="row  mb-20">
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="invoice_number" class="col-sm-2">
+                                            <span
+                                                class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Invoice_Number</span></label>
+                                        <input type="text" class="form-control mt-n3 " id="invoice_number">
                                     </div>
-                                    <div class="row mb-20">
-                                        <div class="col-md-12 col-sm-12">
-                                            <select class="form-control custom-select2" id="customer_id" aria-label="">
-                                                @if ($customers)
-                                                    <option selected="selected">{{ 'Select Partner' }}</option>
-                                                    @foreach ($customers as $key => $item)
-                                                        <option value="{{ $key }}"
-                                                            {{ $order !== null && $key == $order->customer_id ? 'selected' : '' }}>
-                                                            {{ $item }}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                        </div>
+
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="invoice_date" class="col-sm-2">
+                                            <span
+                                                class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Invoice_Date</span></label>
+                                        <input type="text" class="form-control mt-n3 " id="invoice_date">
                                     </div>
-                                </section>
-                                <!-- Step 2 -->
-                                <h5>Order Items</h5>
-                                <section>
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="delivery_date" class="col-sm-2">
+                                            <span
+                                                class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Delivery_Date</span></label>
+                                        <input type="text" class="form-control mt-n3" id="delivery_date">
+                                    </div>
+                                </div>
+                                <div class="row mb-20">
+                                    <div class="col-md-12 col-sm-12">
+                                        <select class="form-control custom-select2" id="customer_id" aria-label="">
+                                            @if ($customers)
+                                                <option selected="selected">{{ 'Select Partner' }}</option>
+                                                @foreach ($customers as $key => $item)
+                                                    <option value="{{ $key }}"
+                                                        {{ $order !== null && $key == $order->customer_id ? 'selected' : '' }}>
+                                                        {{ $item }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+                            </section>
+                            <!-- Step 2 -->
+                            <h5>Order Items</h5>
+                            <section>
+                                <div class="dropdown-divider"></div>
+                                <div class="row">
+                                    <div class="clearfix">
+                                        <h6 class="text-blue h6">Add Items/Product</h6>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 table-responsive">
+                                        <table class="table table-bordered table-sm" id="items">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Item</th>
+                                                    <th scope="col">HSN Code</th>
+                                                    <th scope="col">Qnty</th>
+                                                    <th scope="col">
+                                                        Price/Unit<br /><small>Sale/Retailer/Distributor/Purchase</small>
+                                                    </th>
+                                                    <th scope="col">Discount</th>
+                                                    <th scope="col">GST</th>
+                                                    <th scope="col">Amount</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody id="items-body"></tbody>
+
+                                            <tfoot id="items-footer">
+
+                                                <td scope="col"></td>
+                                                <td scope="col">
+                                                    <span class="btn btn-block btn-light btn-outline-success btn-sm"
+                                                        id="add-item" onclick="addRow()">Add
+                                                        item
+                                                    </span>
+                                                </td>
+                                                <td scope="col"></td>
+                                                <td scope="col" data-totalqnty="" class="totalQnty">
+                                                </td>
+                                                <td scope="col" data-totalunitprice="" class="totalUnitPrice">
+                                                </td>
+                                                <td scope="col" data-totaldiscount="" class="totalDiscount"></td>
+                                                <td scope="col" data-totalgstamount="" class="totalGstAmount">
+                                                </td>
+                                                <td scope="col" data-totalamount="a" class="totalAmount"></td>
+                                            </tfoot>
+                                        </table>
+                                    </div>
                                     <div class="dropdown-divider"></div>
-                                    <div class="row">
-                                        <div class="clearfix">
-                                            <h6 class="text-blue h6">Add Items/Product</h6>
-                                        </div>
-                                        <div class="col-md-12 col-sm-12 table-responsive">
-                                            <table class="table table-bordered " id="items">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Item</th>
-                                                        <th scope="col">HSN Code</th>
-                                                        <th scope="col">Qnty</th>
-                                                        <th scope="col">
-                                                            Price/Unit<br /><small>Sale/Retailer/Distributor/Purchase</small>
-                                                        </th>
-                                                        <th scope="col">Discount</th>
-                                                        <th scope="col">GST</th>
-                                                        <th scope="col">Amount</th>
-                                                    </tr>
-                                                </thead>
+                                    <div class="clearfix">
+                                        <h6 class="text-blue h6">Grand Total Adjustment</h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="order_total" class="col-sm-2">
+                                            <span
+                                                class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Order_total</span></label>
+                                        <input type="text" name="order_total" readonly class="form-control mt-n3 "
+                                            id="order_total">
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="order_gst" class="col-sm-2">
+                                            <span
+                                                class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Order_gst</span></label>
+                                        <input type="text" name="order_gst" readonly class="form-control mt-n3 "
+                                            id="order_gst">
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="current_balance" class="col-sm-2">
+                                            <span
+                                                class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Current_balance</span></label>
+                                        <input type="text" name="current_balance" readonly class="form-control mt-n3 "
+                                            id="current_balance">
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="order_discount" class="col-sm-2">
+                                            <span
+                                                class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Order_discount</span></label>
+                                        <input type="text" name="order_discount" class="form-control mt-n3 "
+                                            id="order_discount">
+                                    </div>
 
-                                                <tbody id="items-body"></tbody>
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="currently_paid" class="col-sm-2">
+                                            <span
+                                                class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Currently_paid</span></label>
+                                        <input type="text" name="currently_paid" class="form-control mt-n3 "
+                                            id="currently_paid">
+                                    </div>
 
-                                                <tfoot>
-                                                    <tr scope="row" id="items-footer">
-                                                        <td scope="col"></td>
-                                                        <td scope="col">
-                                                            <span class="btn btn-block btn-light btn-outline-success btn-sm"
-                                                                id="add-item" onclick="addRow()">Add
-                                                                item
-                                                            </span>
-                                                        </td>
-                                                        <td scope="col"></td>
-                                                        <td scope="col" data-totalQnty="" class="totalQnty">
-                                                        </td>
-                                                        <td scope="col" data-totalUnitPrice="" class="totalUnitPrice">
-                                                        </td>
-                                                        <td scope="col" data-totalDiscount="" class="totalDiscount"></td>
-                                                        <td scope="col" data-totalGstAmount="" class="totalGstAmount">
-                                                        </td>
-                                                        <td scope="col" data-totalAmount="" class="totalAmount"></td>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                        <div class="dropdown-divider"></div>
-                                        <div class="clearfix">
-                                            <h6 class="text-blue h6">Grand Total Adjustment</h6>
-                                        </div>
-                                        <div class="col-md-4 col-sm-12">
-                                            <label for="order_total" class="col-sm-2">
-                                                <span
-                                                    class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Order_total</span></label>
-                                            <input type="text" name="order_total" readonly class="form-control mt-n3 "
-                                                id="order_total">
-                                        </div>
-                                        <div class="col-md-4 col-sm-12">
-                                            <label for="order_gst" class="col-sm-2">
-                                                <span
-                                                    class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Order_gst</span></label>
-                                            <input type="text" name="order_gst" class="form-control mt-n3 "
-                                                id="order_gst">
-                                        </div>
-                                        <div class="col-md-4 col-sm-12">
-                                            <label for="order_discount" class="col-sm-2">
-                                                <span
-                                                    class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Order_discount</span></label>
-                                            <input type="text" name="order_discount" class="form-control mt-n3 "
-                                                id="order_discount">
-                                        </div>
 
-                                        <div class="col-md-4 col-sm-12">
-                                            <label for="currently_paid" class="col-sm-2">
-                                                <span
-                                                    class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Currently_paid</span></label>
-                                            <input type="text" name="currently_paid" class="form-control mt-n3 "
-                                                id="currently_paid">
-                                        </div>
-                                        <div class="col-md-4 col-sm-12">
-                                            <label for="current_balance" class="col-sm-2">
-                                                <span
-                                                    class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Current_balance</span></label>
-                                            <input type="text" name="current_balance" class="form-control mt-n3 "
-                                                id="current_balance">
-                                        </div>
+                            </section>
+                            <!-- Step 3 -->
+                            <h5>Order Address</h5>
+                            <section>
+                                <div class="dropdown-divider"></div>
+                                <div class="row mt-5">
 
-                                </section>
-                                <!-- Step 3 -->
-                                <h5>Order Address</h5>
-                                <section>
-                                    <div class="dropdown-divider"></div>
-                                    <div class="row mt-5">
+                                    <div class="col-md-12 form-group custom-control custom-radio ml-2">
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" id="addressNew" name="address" value="new"
+                                                class="custom-control-input form-check-input">
 
-                                        <div class="col-md-12 form-group custom-control custom-radio ml-2">
-                                            <div class="form-check form-check-inline">
-                                                <input type="radio" id="addressNew" name="address" value="new"
-                                                    class="custom-control-input form-check-input">
-
-                                                <label class="custom-control-label form-check-label" for="addressNew">New
-                                                    Address</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-
-                                                <input type="radio" id="addressExist" name="address" value="exist"
-                                                    class="custom-control-input form-check-input">
-                                                <label class="custom-control-label form-check-label"
-                                                    for="addressExist">Existing
-                                                    Address</label>
-
-                                            </div>
-
+                                            <label class="custom-control-label form-check-label" for="addressNew">New
+                                                Address</label>
                                         </div>
-                                        <div class="col-md-12 form-group addressExist">
-                                            <select class="form-control custom-select2" id="address" aria-label="">
-                                                <option value="">{{ 'Select Address' }}</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 addressNew">
-                                            <div class="form-group">
-                                                <label>address1</label>
-                                                <input type="text" class="form-control" name="address1">
-                                            </div>
+                                        <div class="form-check form-check-inline">
 
-                                        </div>
-                                        <div class="col-md-6 addressNew">
-                                            <div class="form-group">
-                                                <label>address2 <small>(Optional)</small></label>
-                                                <input type="text" class="form-control" name="address2">
-                                                <input type="hidden" class="form-control" name="type">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 addressNew">
-                                            <div class="form-group">
-                                                <label>Locality <small>*</small></label>
-                                                <input type="text" class="form-control" name="locality">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 addressNew">
-                                            <div class="form-group">
-                                                <label>city <small>*</small></label>
-                                                <input type="text" class="form-control" name="city">
-                                            </div>
-                                        </div>
+                                            <input type="radio" id="addressExist" name="address" value="exist"
+                                                class="custom-control-input form-check-input">
+                                            <label class="custom-control-label form-check-label"
+                                                for="addressExist">Existing
+                                                Address</label>
 
-                                        <div class="col-md-6 addressNew">
-                                            <div class="form-group">
-                                                <label>Pincode <small>*</small></label>
-                                                <input type="text" class="form-control" name="pincode">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 addressNew">
-                                            <div class="form-group">
-                                                <label>State <small>*</small></label>
-                                                <input type="text" class="form-control" name="state">
-                                            </div>
                                         </div>
 
                                     </div>
-                                </section>
-                            </div>
+                                    <div class="col-md-12 form-group addressExist">
+                                        <select class="form-control custom-select2" id="address" aria-label="">
+                                            <option value="">{{ 'Select Address' }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 addressNew">
+                                        <div class="form-group">
+                                            <label>address1</label>
+                                            <input type="text" class="form-control" name="address1">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 addressNew">
+                                        <div class="form-group">
+                                            <label>address2 <small>(Optional)</small></label>
+                                            <input type="text" class="form-control" name="address2">
+                                            <input type="hidden" class="form-control" name="type">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 addressNew">
+                                        <div class="form-group">
+                                            <label>Locality <small>*</small></label>
+                                            <input type="text" class="form-control" name="locality">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 addressNew">
+                                        <div class="form-group">
+                                            <label>city <small>*</small></label>
+                                            <input type="text" class="form-control" name="city">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 addressNew">
+                                        <div class="form-group">
+                                            <label>Pincode <small>*</small></label>
+                                            <input type="text" class="form-control" name="pincode">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 addressNew">
+                                        <div class="form-group">
+                                            <label>State <small>*</small></label>
+                                            <input type="text" class="form-control" name="state">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </section>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -286,24 +281,31 @@
             $(".addressNew").css('display', 'block');
             $(".addressExist").css('display', 'none');
         });
-
+        let orderTotal = 0;
         let calculateProductAmount = (id) => {
             const selectedRowId = id;
             const row = $(`#${selectedRowId}`);
+            let currentProductPrice = 0;
             const qnty = row.find('.qnty input').val();
             const unitPrice = row.find('.price input').val();
             const discountPrice = row.find('.discount input').val() == '' ? 0 : row.find('.discount input').val();
-            const gst = row.find('.gst')
-                .data('gst');
-            let currentProductPrice = (unitPrice * qnty) - discountPrice;
-            gstAmount = currentProductPrice * (gst / 100)
+            const gst = row.find('.gst').data('gst');
+            currentProductPrice = (Number(unitPrice) * Number(qnty)) - Number(discountPrice);
+
+            gstAmount = Number(currentProductPrice * (gst / 100));
             currentProductPrice += gstAmount;
-            row.find('.productamount').empty()
+            row.find('.productamount')
+                .removeData('productamount')
                 .attr('data-productamount', currentProductPrice)
+                .empty()
                 .append(currentProductPrice);
-            row.find('.gst small').empty()
+
+            row.find('.gst small')
+                .removeData('gstAmount')
                 .attr('data-gstAmount', gstAmount)
-                .append(gstAmount);
+                .empty()
+                .append(gstAmount.toFixed(2));
+
             setTimeout(() => {
                 calculateTotal();
             }, 1000);
@@ -320,8 +322,8 @@
                 totalQnty += parseFloat(row.eq(i).find('.qnty input').val());
                 totalUnitPrice += parseFloat(row.eq(i).find('.price input').val());
                 totalDiscount += parseFloat(row.eq(i).find('.discount input').val());
-                totalGstAmount += parseFloat(row.eq(i).find('.gst small').data('gstamount'));
-                totalAmount += parseFloat(row.eq(i).find('.productamount').data('productamount'));
+                totalGstAmount += parseFloat(row.eq(i).find('.gst small').removeData().data('gstamount'));
+                totalAmount += parseFloat(row.eq(i).find('.productamount').removeData().data('productamount'));
             }
             totalQnty = totalQnty.toFixed(2);
             totalUnitPrice = totalUnitPrice.toFixed(2);
@@ -330,26 +332,84 @@
             totalAmount = totalAmount.toFixed(2);
 
             const itemFooter = $('#items-footer');
-            itemFooter.find('.totalQnty').empty().data('totalQnty', totalQnty).append(totalQnty);
-            itemFooter.find('.totalUnitPrice').empty().data('totalUnitPrice', totalUnitPrice).append(totalUnitPrice);
-            itemFooter.find('.totalDiscount').empty().data('totalDiscount', totalDiscount).append(totalDiscount);
-            itemFooter.find('.totalGstAmount').empty().data('totalGstAmount', totalGstAmount).append(totalGstAmount);
-            itemFooter.find('.totalAmount').empty().data('totalAmount', totalAmount).append(totalAmount);
+            itemFooter.find('.totalQnty')
+                .removeData('totalqnty')
+                .attr('data-totalqnty', totalQnty)
+                .empty()
+                .append(totalQnty);
+            itemFooter.find('.totalUnitPrice')
+                .removeData('totalunitprice')
+                .attr('data-totalunitprice', totalUnitPrice)
+                .empty()
+                .append(totalUnitPrice);
+            itemFooter.find('.totalDiscount')
+                .removeData('totaldiscount')
+                .attr('data-totaldiscount', totalDiscount)
+                .empty()
+                .append(totalDiscount);
+            itemFooter.find('.totalGstAmount')
+                .removeData('totalgstamount')
+                .attr('data-totalgstamount', totalGstAmount)
+                .empty()
+                .append(totalGstAmount);
+            itemFooter.find('.totalAmount')
+                .removeData('totalamount')
+                .attr('data-totalamount', totalAmount)
+                .empty()
+                .append(totalAmount);
+
+            orderTotal = Number(totalAmount);
+
+            $('#order_total').val(orderTotal);
+            $('#order_gst').val(totalGstAmount);
+            $('#order_discount').val(totalDiscount);
+            $('#currently_paid').val(0);
+            $('#current_balance').val(orderTotal);
         }
+        $("#order_discount").on('blur', function() {
+            let totalDiscount = $(this).val();
+            let currentPaid = Number($('#currently_paid').val());
+            let newOrderTotal = 0;
+            newOrderTotal = orderTotal - totalDiscount;
+            $('#order_total').empty().val(newOrderTotal);
+            let newBalance = 0;
+            newBalance = newOrderTotal - currentPaid;
+            $('#current_balance').empty().val(newBalance);
+        })
+        $("#currently_paid").on('keyup', function() {
+            let currentPaid = $(this).val();
+            let orderDiscount = Number($('#order_discount').val());
+            let newBalance = 0;
+            newBalance = orderTotal - currentPaid - orderDiscount;
+            $('#current_balance').empty().val(Number(newBalance.toFixed()));
+        })
         const $products = {!! json_encode($products->toArray()) !!};
         let itemSelected = (id) => {
             const selectedRowId = id;
             const product = $(`#product_${selectedRowId} :selected`).data('product');
             const row = $(`tr#${selectedRowId}`);
-            row.find('.hsn').empty().append(product.hsn);
-            row.find('.qnty small').empty().append('Remaining :' + product.quantity);
-            row.find('.price input').empty().val(product.sale_price);
+            row.find('.hsn')
+                .empty()
+                .append(product.hsn);
+            row.find('.qnty small')
+                .empty()
+                .append('Remaining :' + product.quantity);
+            row.find('.price input')
+                .empty()
+                .val(product.sale_price);
             let priceInfo = product.sale_price + '/' + product.retailer_price +
                 '/' + product.distributor_price + '/' + product.purchase_price;
-            row.find('.price small').empty().append(priceInfo);
-            row.find('.discount input').empty().val(0);
-            row.find('.gst').empty().append(product.gst + '<br/><small data-gstAmount=""></small>').attr('data-gst',
-                product.gst);
+            row.find('.price small')
+                .empty()
+                .append(priceInfo);
+            row.find('.discount input')
+                .empty()
+                .val(0);
+            row.find('.gst')
+                .removeData('gst')
+                .attr('data-gst', product.gst)
+                .empty()
+                .append(product.gst + '<br/><small data-gstAmount=""></small>');
         }
 
         let itemRowId = 1;
