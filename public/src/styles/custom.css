@@ -3,6 +3,9 @@
   display: none;
 }
 
+.wizard-content .wizard.vertical > .steps {
+  width: 15%;
+}
 /* Media Query for low resolution  Tablets, Ipads */
 @media (max-width: 767px) {
   .wizard-content .wizard.vertical > .steps {

@@ -67,9 +67,9 @@
     <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
     <!-- switchery js -->
     <script src="src/plugins/switchery/switchery.min.js"></script>
-    <script src="vendors/scripts/advanced-components.js"></script>
+    {{-- <script src="vendors/scripts/advanced-components.js"></script> --}}
     {{-- sweet alert --}}
-    <script src="{{ 'vendors/plugins/sweetalert2/sweet-alert.init.js' }}"></script>
+    {{-- <script src="{{ 'vendors/plugins/sweetalert2/sweet-alert.init.js' }}"></script> --}}
 
     <script type="text/javascript">
         let table = $('.datatable').DataTable({

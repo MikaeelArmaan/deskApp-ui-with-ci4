@@ -9,8 +9,9 @@
         </div>
     </div>
     <div class="menu-block customscroll">
-        <div class="sidebar-menu">
-            <ul id="accordion-menu">
+        <div
+            class="sidebar-menu icon-style-{{ !isset($this->sesstion['sitesetting']) ? env('menu_icon') : $this->sesstion['sitesetting']->menu_icon }} icon-list-style-{{ !isset($this->sesstion['sitesetting']) ? env('menu_icon_list') : $this->sesstion['sitesetting']->menu_icon_list }}">
+            <ul id="accordion-menu" class="">
                 <!-- Nav Item - Dashboard -->
                 <li>
                     <a href="{{ route_to('dashboard.index') }}" class="dropdown-toggle no-arrow">
@@ -97,6 +98,17 @@
                         </ul>
                     </li>
                 @endif
+                @if (defender()->canDo('address.activity.index'))
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="fa fa-map-marker micon"></span><span class="mtext">Address</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a class="collapse-item" href="{{ route_to('address.index') }}">Address List</a></li>
+
+                        </ul>
+                    </li>
+                @endif
                 @if (defender()->canDo('brands.activity.index'))
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
@@ -137,7 +149,21 @@
                             <span class="micon fa fa-group"></span><span class="mtext">Customers</span>
                         </a>
                         <ul class="submenu">
-                            <li><a class="collapse-item" href="{{ route_to('customers.index') }}">Customer List</a></li>
+                            <li><a class="collapse-item" href="{{ route_to('customers.index') }}">Customer List</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                @endif
+                @if (defender()->canDo('sitesettings.activity.index'))
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon fa fa-cogs"></span><span class="mtext">Site Setting</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a class="collapse-item" href="{{ route_to('sitesettings.index') }}">Site Setting
+                                    List</a>
+                            </li>
 
                         </ul>
                     </li>

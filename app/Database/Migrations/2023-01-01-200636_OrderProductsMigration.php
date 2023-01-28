@@ -30,6 +30,11 @@ class OrderproductsMigration extends Migration
                 'constraint' => 11,
                 'null' => true
             ],
+            'unitprice' => [
+                'type' => 'DECIMAL',
+                'constraint' => '10,2',
+                'null' => true
+            ],
             'price' => [
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',

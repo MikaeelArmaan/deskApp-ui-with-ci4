@@ -47,3 +47,8 @@ if (!function_exists('dd')) {
  * GST Array.
  */
 define('GST', ['5.00' => 'GST - 5%', '12.00' => 'GST - 12%', '18.00' => 'GST - 18%', '28.00' => 'GST - 28%']);
+
+/**
+ * Status Array.
+ */
+define('ORDERSTATUS', [1 => 'Full Paid', 2 => 'Partially Paid', 3 => 'Deactivate']);

@@ -20,7 +20,11 @@ class OrdersMigration extends Migration
                 'constraint' => 100,
             ],
             'invoice_date' => [
-                'type' => 'datetime',
+                'type' => 'date',
+                'null' => true
+            ],
+            'delivery_date' => [
+                'type' => 'date',
                 'null' => true
             ],
             'customer_id' => [

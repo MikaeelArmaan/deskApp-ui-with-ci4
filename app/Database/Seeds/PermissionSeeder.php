@@ -79,8 +79,15 @@ class PermissionSeeder extends Seeder
 				'orders' => [
 					'index'  => 'Can read Orders data',
 					'create' => 'Can create Orders data',
+					'invoice' => 'Can Download Order PDF data',
 					'update' => 'Can update Orders data',
 					'delete' => 'Can delete Orders data'
+				],
+				'sitesettings' => [
+					'index'  => 'Can read Site Settings data',
+					'create' => 'Can create Site Settings data',
+					'update' => 'Can update Site Settings data',
+					'delete' => 'Can delete Site Settings data'
 				],
 			],
 			'main' => [

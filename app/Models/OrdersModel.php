@@ -2,22 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use CodeIgniter\Model;
 
-class OrdersModel extends Eloquent
+class OrdersModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'orders';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
+    protected $returnType       = 'object';
+    protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [
         'invoice_no',
         'invoice_date',
-        'customer_id ',
+        'delivery_date',
+        'customer_id',
         'shipping_address_id',
         'billing_address_id',
         'billing_address_id',
@@ -37,7 +38,8 @@ class OrdersModel extends Eloquent
         'id',
         'invoice_no',
         'invoice_date',
-        'customer_id ',
+        'delivery_date',
+        'customer_id',
         'shipping_address_id',
         'billing_address_id',
         'billing_address_id',
@@ -54,23 +56,37 @@ class OrdersModel extends Eloquent
         'created_by',
         'updated_by',
     ];
+    // Dates
+    protected $useTimestamps = true;
+    protected $dateFormat    = 'datetime';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $deletedField  = 'deleted_at';
 
     // Validation
     protected $validationRules      = [
         'customer_id' => 'required',
-        'billing_address_id' => 'required',
+        'address' => 'required',
+        'invoice_date' => 'required',
+        'delivery_date' => 'required',
     ];
 
     protected $validationMessages   = [
         'customer_id' => [
             'required' => 'Customer is required',
         ],
-        'billing_address_id' => [
-            'required' => 'Billing address is required',
+        'invoice_date' => [
+            'required' => 'Invoice Date is required',
+        ],
+        'delivery_date' => [
+            'required' => 'Delivery Date is required',
+        ],
+        'address' => [
+            'required' => 'Address is required',
         ],
     ];
 
-    protected $skipValidation       = false;
+    protected $skipValidation       = true;
     protected $cleanValidationRules = true;
 
     // Callbacks
@@ -84,23 +100,4 @@ class OrdersModel extends Eloquent
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    function getValidationRules()
-    {
-        return $this->validationRules;
-    }
-
-    function getValidationMessages()
-    {
-        return $this->validationMessages;
-    }
-
-    public function customer()
-    {
-        return $this->hasOne(CustomersModel::class, 'id', 'customer_id');
-    }
-
-    public function billingAddress()
-    {
-        return $this->hasOne(AddressModel::class, 'id', 'billing_address_id');
-    }
 }

@@ -23,13 +23,12 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="{{ base_url('vendors/styles/core.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ base_url('vendors/styles/icon-font.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ base_url('vendors/fonts/font-awesome/css/font-awesome.min.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ base_url('vendors/fonts/font-awesome/css/font-awesome.min.css') }}">
 
-    <link rel="stylesheet" type="text/css"
+     <link rel="stylesheet" type="text/css"
         href="{{ base_url('src/plugins/datatables/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css"
-        href="{{ base_url('src/plugins/datatables/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ base_url('vendors/styles/style.css') }}">
+        href="{{ base_url('src/plugins/datatables/css/responsive.bootstrap4.min.css') }}"> --}}
     {{-- <link href="{{ base_url('css/app.css') }}" rel="stylesheet"> --}}
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
@@ -47,13 +46,16 @@
     <script>
         $(window).on('load', function() {
             $('.pre-loader').fadeOut();
-           
+
         });
     </script>
     @stack('styles')
+    <link rel="stylesheet" type="text/css" href="{{ base_url('vendors/styles/style.css') }}">
+
 </head>
 
-<body id="page-top">
+<body
+    class="{{ !isset($this->sesstion['sitesetting']) ? env('headercolor') : $this->sesstion['sitesetting']->headercolor }} {{ !isset($this->sesstion['sitesetting']) ? env('sidebarcolor') : $this->sesstion['sitesetting']->sidebarcolor }}">
     @include('partials.loader')
     <!-- Topbar -->
     @include('theme.header')
@@ -64,9 +66,7 @@
     <!-- End of Sidebar -->
 
     <div class="main-container">
-        <div class="xs-pd-20-10">
-
-            <!-- Page Heading -->
+        <div class="pd-ltr-20 xs-pd-20-10">
             @yield('content')
             @yield('modal')
             <div class="footer-wrap pd-20 mb-20 card-box">

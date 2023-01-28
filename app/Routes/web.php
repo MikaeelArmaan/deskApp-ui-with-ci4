@@ -108,7 +108,29 @@ $routes->group('administrator', ['filter' => 'verified'], function ($routes) {
         $routes->get('create', 'OrdersController::create', ['as' => 'orders.create', 'filter' => 'permission:modules.orders.create']);
         $routes->post('create', 'OrdersController::store', ['as' => 'orders.create', 'filter' => 'permission:modules.orders.create']);
         $routes->get('(:num)/edit', 'OrdersController::create/$1', ['as' => 'orders.update', 'filter' => 'permission:modules.orders.update']);
+        $routes->get('(:num)/invoice', 'OrdersController::orderPDF/$1', ['as' => 'orders.invoice', 'filter' => 'permission:modules.orders.invoice']);
         $routes->put('(:any)/edit', 'OrdersController::store/$1', ['as' => 'orders.update', 'filter' => 'permission:modules.orders.update']);
         $routes->delete('(:any)/delete', 'OrdersController::destroy/$1', ['as' => 'orders.delete', 'filter' => 'permission:modules.orders.delete']);
+    });
+
+    // Address routes crud
+    $routes->group('address', ['filter' => 'role:*'], function ($routes) {
+        $routes->get('/', 'AddressController::index', ['as' => 'address.index', 'filter' => 'permission:modules.address.index']);
+        $routes->get('data', 'AddressController::getData', ['as' => 'address.data', 'filter' => 'permission:modules.address.index']);
+        $routes->post('by', 'AddressController::getAddress', ['as' => 'address.by', 'filter' => 'permission:modules.address.index']);
+        $routes->post('/', 'AddressController::store', ['as' => 'address.create', 'filter' => 'permission:modules.address.create']);
+        $routes->put('(:any)/update', 'AddressController::store/$1', ['as' => 'address.update', 'filter' => 'permission:modules.address.update']);
+        $routes->delete('(:any)/delete', 'AddressController::destroy/$1', ['as' => 'address.delete', 'filter' => 'permission:modules.address.delete']);
+    });
+
+    // Site Setting routes crud
+    $routes->group('site-settings', ['filter' => 'role:*'], function ($routes) {
+        $routes->get('/', 'SitesettingsController::index', ['as' => 'sitesettings.index', 'filter' => 'permission:modules.sitesettings.index']);
+        $routes->get('data', 'SitesettingsController::getData', ['as' => 'sitesettings.data', 'filter' => 'permission:modules.sitesettings.index']);
+        $routes->get('create', 'SitesettingsController::create', ['as' => 'sitesettings.create', 'filter' => 'permission:modules.sitesettings.create']);
+        $routes->post('create', 'SitesettingsController::store', ['as' => 'sitesettings.create', 'filter' => 'permission:modules.sitesettings.create']);
+        $routes->get('(:num)/edit', 'SitesettingsController::create/$1', ['as' => 'sitesettings.update', 'filter' => 'permission:modules.sitesettings.update']);
+        $routes->put('(:any)/edit', 'SitesettingsController::store/$1', ['as' => 'sitesettings.update', 'filter' => 'permission:modules.sitesettings.update']);
+        $routes->delete('(:any)/delete', 'SitesettingsController::destroy/$1', ['as' => 'sitesettings.delete', 'filter' => 'permission:modules.sitesettings.delete']);
     });
 });
